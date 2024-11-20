@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 require("dotenv").config()
 const cors = require("cors")
+const path = require("path")
 const cookieParser = require("cookie-parser")
 const app = express()
 
@@ -16,7 +17,8 @@ app.use("/api/todo", require("./routes/todo.routes"))
 
 
 app.use("*", (req, res) => {
-    res.status(404).json({ message: `route not found : ${req.method}:${req.url}` })
+  res.sendFile(path.join(__dirname,"dist","index.html"))
+    // res.status(404).json({ message: `route not found : ${req.method}:${req.url}` })
 })
 
 mongoose.connect(process.env.MONGO_URL)
